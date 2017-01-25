@@ -100,6 +100,7 @@
         * [Merging Pull Requests](contributing/framework/merging-pull-requests.md)
         * [Semantic Versioning](contributing/framework/semantic-versioning.md)
         * [Release Workflow](contributing/framework/release-workflow.md)
+        * [Troubleshooting AppVeyor](contributing/framework/troubleshooting-appveyor.md)
         * [Code of Conduct](https://github.com/reactiveui/ReactiveUI/blob/develop/CODE_OF_CONDUCT.md)
         * [License](https://github.com/reactiveui/ReactiveUI/blob/develop/LICENSE)
     * [Plugins](contributing/plugins/index.md)
