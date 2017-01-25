@@ -3,14 +3,14 @@
 ## Waiting for status to be reported
 Ugh, isn't this annoying? Luckily it doesn't happen often. It happens when the Webhook payload from GitHub to AppVeyor failures for whatever reason. Luckily it's easy to fix.
 
-![](/en/images/contributing/waiting-for-status-to-be-reported.png)
+![](en/images/contributing/waiting-for-status-to-be-reported.png)
 
 Navigate to Settings -> Webhooks and then click on the manage AppVeyor webhook button which will reveal this screen.
 
-![](/en/images/contributing/manage-appveyor-webhook.png)
+![](en/images/contributing/manage-appveyor-webhook.png)
 
 Scroll down and identify the failed payload and mash the "Redeliver" button exactly once.
 
-![](/en/images/contributing/trigger-build-by-redelivering-failed-appveyor-webhook.png)
+![](en/images/contributing/trigger-build-by-redelivering-failed-appveyor-webhook.png)
 
 Visit AppVeyor to verify that the build has kicked off.
