@@ -56,7 +56,7 @@ this.WhenActivated(
 
 As a rule of thumb for all platforms, you should use it for bindings and any time there's something your view sets up that will outlive the view bindings. It is also super useful for setting up things that should get added to the visual tree, even if they are not a disposable.
 
-If you create a `WhenActivated` extension that gives you a `CompositeDisposable` instance instead of an `Action<IDisposable>`, you can express your intent even clearer.
+It is also possible to use the overload of `WhenActivated` which gives you a `CompositeDisposable` instance, to express your intent even clearer.
 
 ```
 this.WhenActivated(
@@ -66,8 +66,6 @@ this.WhenActivated(
             .DisposeWith(disposables);
     });
 ```
-
-See https://github.com/kentcb/WorkoutWotch/blob/master/Src/WorkoutWotch.Utility/ReactiveUI/WhenActivatedExtensions.cs for more information.
 
 
 # Chatlogs
