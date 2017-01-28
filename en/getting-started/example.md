@@ -2,42 +2,42 @@
 
 # Reactive UI 101
 
-Let's create a simple application demonstrating a number of ReactiveUI 
-functionalities, without getting into too many under-the-hood details. 
+Let's create a simple application demonstrating a number of ReactiveUI functionalities, without getting into too many under-the-hood details. 
 
-We will create a WPF application, which will allow us to search through 
-Flickr public images.   
-The full code of the application is shown at the end of this chapter, 
-and we will show relevant snippets as we go.
+We will create a WPF application, which will allow us to search through Flickr public images.   
+The full code of the application is shown at the end of this chapter, and we will show relevant snippets as we go.
 
-In Visual Studio create a new WPF application (Please note as of ReactiveUI v6.x .Net 4.5 or above is required).
+In Visual Studio create a new WPF application (.Net 4.5 or above)
 
-Our view has been already created for us, the `MainWindow`, so we will proceed 
-with creating our ViewModel.
+Our view has been already created for us, the `MainWindow`, so we will proceed with creating our ViewModel.
 
 **Add references**
 ```csharp
 using System.Web;
 ```
 
-**Add a new field**
+**Add NuGet Packages**
+```
+Install-Package ReactiveUI
+```
 
+**Add a new field**
 ```csharp
 public AppViewModel ViewModel { get; private set;} 
 ```
 
-**Then assign it a new value inside the MainWindow constructor**
+**Then assign it a new value inside the MainWindow constructor, and bind this to the DataContext**
 
 ```csharp
 public MainWindow()
 {
-  ViewModel = new AppViewModel();
-  InitializeComponent();
+    ViewModel = new AppViewModel();
+    InitializeComponent();
+    DataContext = ViewModel;
 }  
 ```
 
 **Create a new class "AppViewModel"**
-
 ```csharp
 // AppViewModel is where we will describe the interaction of our application
 // (we can describe the entire application in one class since this is very 
@@ -48,7 +48,6 @@ public class AppViewModel : ReactiveObject
     // that will notify Observers (as well as WPF) that a property has 
     // changed. If we declared this as a normal property, we couldn't tell 
     // when it has changed!
-
     string _SearchTerm;
     public string SearchTerm
     {
@@ -59,8 +58,7 @@ public class AppViewModel : ReactiveObject
     // We will describe this later, but ReactiveCommand is a Command
     // (like "Open", "Copy", "Delete", etc), that manages a task running
     // in the background.
-
-    public ReactiveCommand<List<FlickrPhoto>> ExecuteSearch { get; protected set; }
+    public ReactiveCommand<string, List<FlickrPhoto>> ExecuteSearch { get; protected set; }
 
     /* ObservableAsPropertyHelper
      * 
@@ -73,7 +71,6 @@ public class AppViewModel : ReactiveObject
      * It also runs an action whenever the property changes, usually calling
      * ReactiveObject's RaisePropertyChanged.
      */
-
     ObservableAsPropertyHelper<List<FlickrPhoto>> _SearchResults;
     public List<FlickrPhoto> SearchResults => _SearchResults.Value;
 
@@ -82,13 +79,14 @@ public class AppViewModel : ReactiveObject
     // lets the user know that the app is busy). We also declare this property
     // to be the result of an Observable (i.e. its value is derived from 
     // some other property)
-
     ObservableAsPropertyHelper<Visibility> _SpinnerVisibility;
     public Visibility SpinnerVisibility => _SpinnerVisibility.Value;
 
     public AppViewModel()
     {
-        ExecuteSearch = ReactiveCommand.CreateAsyncTask(parameter => GetSearchResultsFromFlickr(this.SearchTerm));
+        ExecuteSearch = ReactiveCommand.CreateFromTask<string, List<FlickrPhoto>>(
+            searchTerm => GetSearchResultsFromFlickr(searchTerm)
+        );
 
         /* Creating our UI declaratively
          * 
@@ -182,8 +180,7 @@ public class AppViewModel : ReactiveObject
 }
 ```
 
-The goal of the syntax of ReactiveUI for read-write properties is to notify 
-Observers that a property has changed. 
+The goal of the syntax of ReactiveUI for read-write properties is to notify Observers that a property has changed. 
 Otherwise we would not be able to know when it was changed. 
 
 The ExecuteSearch is basically an asynchronous task, executing in the background.
@@ -203,12 +200,26 @@ observable to change the visibility of the "processing indicator".
 The `GetSearchResultsFromFlickr` method gets invoked every time there is a 
 throttled change in the UI, so let's define what should happen when a user executes a new search.
 
+Create a simple model class to hold the Flickr results - since we never update the properties once we've created the object, we don't have to use a ReactiveObject.
+
+```csharp
+namespace FlickrBrowser
+{
+    public class FlickrPhoto
+    {
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string Url { get; set; }
+    }
+}
+```
+
 **Our ViewModel is now complete**
 
-## MainWindow.xaml
+Now we need to create a View for our view model, the following is an example
 
 ```xml
-﻿<Window x:Class="FlickrBrowser.MainWindow"
+<Window x:Class="FlickrBrowser.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:Name="Window" Height="350" Width="525">
@@ -232,7 +243,7 @@ throttled change in the UI, so let's define what should happen when a user execu
         </DataTemplate>
     </Window.Resources>
 
-    <Grid DataContext="{Binding ViewModel, ElementName=Window}" Margin="12">
+    <Grid Margin="12">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
@@ -253,52 +264,4 @@ throttled change in the UI, so let's define what should happen when a user execu
                  ItemsSource="{Binding SearchResults}" ItemTemplate="{DynamicResource PhotoDataTemplate}"  />
     </Grid>
 </Window>
-```
-
-## MainWindow.xaml.cs (code behind)
-
- 
-```csharp
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Reactive.Linq;
-using System.Text.RegularExpressions;
-using System.Web;
-using System.Windows;
-using System.Xml.Linq;
-using ReactiveUI;
-
-namespace FlickrBrowser
-{
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
-    {
-        // Since we're using the MVVM pattern, we're going to bind to our 
-        // ViewModel object in the code, and our View code-behind will be
-        // concerned only with things that are solely view-based, like 
-        // minimizing/maximizing a window
-        public AppViewModel ViewModel { get; protected set; }
-
-        public MainWindow()
-        {
-            ViewModel = new AppViewModel();
-            InitializeComponent();
-        }
-    }
-
-    // Create a simple model class to store our Flickr results - since we will 
-    // never update the properties once we create the object, we don't have to
-    // use ReactiveObject, just good-old auto-properties.
-    public class FlickrPhoto
-    {
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string Url { get; set; }
-    }
-}
-```
- 
+```   
