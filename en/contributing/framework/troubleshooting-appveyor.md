@@ -1,9 +1,11 @@
 # Troubleshooting AppVeyor
 
+Rule of thumb: Do not adjust the settings via the GUI interface. All configuration changes must be done via modifying the `AppVeyor.yml`.
+
 
 ## Enabling Remote Desktop
 
-
+Create a branch off the branch you wish to troubleshoot. In that branch adjust the `AppVeyor.yml` [as per the instructions on this page](https://www.appveyor.com/docs/how-to/rdp-to-build-worker/) and then push the branch.
 
 ![](/images/contributing/enable-rdp-on-appveyor.png)
 
