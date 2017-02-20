@@ -12,7 +12,7 @@ Push the troubleshooting branch which will trigger a new build. When that build 
 
 ![](/images/contributing/appveyor-rdp-credentials.png)
 
-Your RDP session is limited by overall build time (60 min). All work will be destroyed when the limit is reached so keep working notes on your local computer. If you need more time then locate your branch in the AppVeyor build history and rebuild the commit.
+Your RDP session is limited by overall build time (60 min). All work will be destroyed when the limit is reached so keep working notes on your local computer. If you need more time then locate your branch in the AppVeyor build history and rebuild the commit which will provision a new instance with different RDP credentials and a fresh session limit.
 
 > **Warning** Please don't litter in our repository; delete your temporary branch when you have finished troubleshooting.
 
