@@ -1,14 +1,18 @@
 # Troubleshooting AppVeyor
 
-Rule of thumb: Do not adjust the settings via the GUI interface. All configuration changes must be done via modifying the `AppVeyor.yml`.
-
+> **Warning** Do not adjust the project settings via the GUI interface. All configuration changes must be done via modifying the `AppVeyor.yml` which ensures that there is no configuration drift and all changes go through the project approval process. 
 
 ## Enabling Remote Desktop
 
-Create a branch off the branch you wish to troubleshoot. In that branch adjust the `AppVeyor.yml` [as per the instructions on this page](https://www.appveyor.com/docs/how-to/rdp-to-build-worker/) and then push the branch.
+Create a branch off the branch you wish to troubleshoot. In that branch adjust the `AppVeyor.yml` [as per the instructions on this page](https://www.appveyor.com/docs/how-to/rdp-to-build-worker/).
 
 ![](/images/contributing/enable-rdp-on-appveyor.png)
 
+Push the troubleshooting branch which will trigger a new build. When that build completes (either success or failure) at the bottom of the log you will find credentials which you can use to RDP onto AppVeyor. 
+
+![](/images/contributing/appveyor-rdp-credentials.png)
+
+Your RDP session is limited by overall build time (60 min).
 
 ## Retrying a failed build
 
