@@ -1,6 +1,12 @@
 # Troubleshooting AppVeyor
 
+
 ## Enabling Remote Desktop
+
+
+
+
+## Retrying a failed build
 
 
 ## Waiting for status to be reported
