@@ -5,6 +5,8 @@
 
 
 
+![](/images/contributing/enable-rdp-on-appveyor.png)
+
 
 ## Retrying a failed build
 
