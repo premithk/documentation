@@ -1,7 +1,6 @@
 # Troubleshooting AppVeyor
 
-Rule of thumb: Do not adjust the settings via the GUI interface. All configuration changes must be done via modifying the `AppVeyor.yml`.
-
+> **Warning** Do not adjust the project settings via the GUI interface. All configuration changes must be done via modifying the `AppVeyor.yml` which ensures that there is no configuration drift and all changes go through the project approval process. 
 
 ## Enabling Remote Desktop
 
