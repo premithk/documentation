@@ -1,4 +1,5 @@
 # Contributing
+
 By contributing to the ReactiveUI documentation, you agree to [assign copyright of any contribution back to the project](COPYRIGHT.md) under the [nominated license](LICENSE.md). We are open to, and grateful for, any contributions made by the community.
 
 # Reporting Documentation Issues
@@ -11,12 +12,14 @@ Please open an issue with a proposal for a new feature or refactoring before sta
 
 # Building
 
-    # npm install gitbook
-    # npm install -g gitbook-cli
-    # gitbook install ./
-    # gitbook serve
-    
-    Visit http://localhost:4000/ in your browser.
+```
+# npm install gitbook
+# npm install -g gitbook-cli
+# gitbook install ./
+# gitbook serve
+
+Visit http://localhost:4000/ in your browser.
+```
 
 # Submitting Changes
 
@@ -31,3 +34,4 @@ Please try to keep your pull request focused in scope and avoid including unrela
 After you have submitted your pull request, we'll try to get back to you as soon as possible. We may suggest some changes or improvements.
 
 Thank you for contributing!
+

@@ -1,5 +1,8 @@
 # Troubleshooting AppVeyor
 
+## Enabling Remote Desktop
+
+
 ## Waiting for status to be reported
 Ugh, isn't this annoying? Luckily it doesn't happen often. It happens when the Webhook payload from GitHub to AppVeyor failures for whatever reason. Luckily it's easy to fix.
 
