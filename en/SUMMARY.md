@@ -94,6 +94,7 @@
         * [License](https://github.com/reactiveui/documentation/blob/master/LICENSE.md)
     * [Framework](contributing/framework/index.md)
         * [Pre-release Builds](contributing/framework/pre-release-builds.md)
+        * [Approval Tests](contributing/framework/approval-tests.md)
         * [Commit Message Convention](contributing/framework/commit-message-convention.md)
         * [Submitting A Pull Request](contributing/framework/submitting-a-pull-request.md)
         * [Reviewing Pull Requests](contributing/framework/reviewing-pull-requests.md)
