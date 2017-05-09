@@ -87,7 +87,7 @@
   * [Prefer OAPH over Properties](design-guidelines/prefer-opah-over-properties.md)
   * [Use this on Left of WhenAny](design-guidelines/use-this-on-left-of-whenany.md)
   * [Use descriptive variables with WhenAny](design-guidelines/use-descriptive-variables-with-whenany.md)
-  * [Dispose your subscriptions](design-guidelines/dispose-subscriptions.md)
+  * [Dispose your subscriptions](design-guidelines/dispose-your-subscriptions.md)
 * [Contributing](contributing/index.md)
   * [Documentation](contributing/documentation.md)
     * [Authors](https://github.com/reactiveui/documentation/graphs/contributors)

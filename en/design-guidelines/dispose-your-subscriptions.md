@@ -10,3 +10,5 @@ this.WhenActivated(
             .DisposeWith(disposables);
     });
 ```
+
+See also https://docs.reactiveui.net/en/user-guide/when-activated/
